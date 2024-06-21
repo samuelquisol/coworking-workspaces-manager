@@ -4,6 +4,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { HttpExceptionFilter } from './common/filters/http-exception.filter';
 import { APP_FILTER } from '@nestjs/core';
 import { WorkspacesModule } from './modules/workspaces/workspaces.module';
+import { RoomsModule } from './modules/rooms/rooms.module';
+import { SessionsModule } from './modules/sessions/sessions.module';
 @Module({
   imports: [
     ConfigModule.forRoot(),
@@ -21,6 +23,8 @@ import { WorkspacesModule } from './modules/workspaces/workspaces.module';
       },
     }),
     WorkspacesModule,
+    RoomsModule,
+    SessionsModule,
   ],
   providers: [
     {

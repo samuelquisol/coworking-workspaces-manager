@@ -11,7 +11,7 @@ import {
 import { RoomsService } from './rooms.service';
 import { CreateRoomDto } from './dto/create-room.dto';
 import { UpdateRoomDto } from './dto/update-room.dto';
-import { Rooms } from './entities/rooms.entity';
+import { Rooms } from './entities/room.entity';
 import {
   ApiTags,
   ApiOperation,
