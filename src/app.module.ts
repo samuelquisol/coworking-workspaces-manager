@@ -6,6 +6,7 @@ import { APP_FILTER } from '@nestjs/core';
 import { WorkspacesModule } from './modules/workspaces/workspaces.module';
 import { RoomsModule } from './modules/rooms/rooms.module';
 import { SessionsModule } from './modules/sessions/sessions.module';
+import { ReservationsModule } from './modules/reservations/reservations.module';
 @Module({
   imports: [
     ConfigModule.forRoot(),
@@ -25,6 +26,7 @@ import { SessionsModule } from './modules/sessions/sessions.module';
     WorkspacesModule,
     RoomsModule,
     SessionsModule,
+    ReservationsModule,
   ],
   providers: [
     {
