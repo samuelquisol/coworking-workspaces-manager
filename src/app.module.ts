@@ -3,7 +3,7 @@ import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { HttpExceptionFilter } from './common/filters/http-exception.filter';
 import { APP_FILTER } from '@nestjs/core';
-
+import { WorkspacesModule } from './modules/workspaces/workspaces.module';
 @Module({
   imports: [
     ConfigModule.forRoot(),
@@ -20,6 +20,7 @@ import { APP_FILTER } from '@nestjs/core';
         ssl: true,
       },
     }),
+    WorkspacesModule,
   ],
   providers: [
     {
