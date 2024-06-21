@@ -7,6 +7,7 @@ import { WorkspacesModule } from './modules/workspaces/workspaces.module';
 import { RoomsModule } from './modules/rooms/rooms.module';
 import { SessionsModule } from './modules/sessions/sessions.module';
 import { ReservationsModule } from './modules/reservations/reservations.module';
+import { UsersModule } from './modules/users/users.module';
 @Module({
   imports: [
     ConfigModule.forRoot(),
@@ -27,6 +28,7 @@ import { ReservationsModule } from './modules/reservations/reservations.module';
     RoomsModule,
     SessionsModule,
     ReservationsModule,
+    UsersModule,
   ],
   providers: [
     {
