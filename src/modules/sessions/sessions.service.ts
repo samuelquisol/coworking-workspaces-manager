@@ -81,4 +81,30 @@ export class SessionsService {
       throw new NotFoundException(`Session with ID ${session_id} not found`);
     }
   }
+
+  // Custom Queries
+
+  async findMostOccupied(): Promise<any> {
+    return this.sessionsRepository.query(`
+      SELECT session_id, COUNT(*) as reservation_count
+      FROM Reservations
+      WHERE status = 'confirmed'
+      GROUP BY session_id
+      ORDER BY reservation_count DESC
+    `);
+  }
+
+  async findMostAvailable(): Promise<any> {
+    return this.sessionsRepository.query(`
+      SELECT session_id, COUNT(*) as available_count
+      FROM Workspaces
+      WHERE workspace_id NOT IN (
+          SELECT workspace_id
+          FROM Reservations
+          WHERE status = 'confirmed'
+      )
+      GROUP BY session_id
+      ORDER BY available_count DESC
+    `);
+  }
 }

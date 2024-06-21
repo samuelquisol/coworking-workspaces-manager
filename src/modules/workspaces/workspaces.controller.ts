@@ -162,4 +162,48 @@ export class WorkspacesController {
   async remove(@Param('id') id: string): Promise<void> {
     return this.workspacesService.remove(id);
   }
+
+  // Custom Queries
+  @Get('available/:roomId/:sessionId')
+  @ApiOperation({
+    summary: 'Retrieve available workspaces in a room for a specific session',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Retrieved available workspaces successfully.',
+    type: [Workspaces],
+  })
+  async findAvailable(
+    @Param('roomId') roomId: string,
+    @Param('sessionId') sessionId: string,
+  ): Promise<Workspaces[]> {
+    return this.workspacesService.findAvailable(roomId, sessionId);
+  }
+
+  @Get('occupied/:roomId/:sessionId')
+  @ApiOperation({
+    summary: 'Retrieve occupied workspaces in a room for a specific session',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Retrieved occupied workspaces successfully.',
+    type: [Workspaces],
+  })
+  async findOccupied(
+    @Param('roomId') roomId: string,
+    @Param('sessionId') sessionId: string,
+  ): Promise<Workspaces[]> {
+    return this.workspacesService.findOccupied(roomId, sessionId);
+  }
+
+  @Get('assigned/user/:userId')
+  @ApiOperation({ summary: 'Retrieve workspaces assigned to a user' })
+  @ApiResponse({
+    status: 200,
+    description: 'Retrieved assigned workspaces successfully.',
+    type: [Workspaces],
+  })
+  async findAssignedToUser(@Param('userId') userId: string): Promise<string[]> {
+    return this.workspacesService.findAssignedToUser(userId);
+  }
 }

@@ -1,14 +1,8 @@
-import {
-  Entity,
-  PrimaryGeneratedColumn,
-  Column,
-  /*   OneToMany,
-   */
-} from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
 import { IsUUID, IsString, Length, IsInt } from 'class-validator';
-/* import { Workspaces } from 'src/modules/workspaces/entities/workspace.entity';
-import { Session } from '';
- */
+import { Workspaces } from 'src/modules/workspaces/entities/workspace.entity';
+import { Sessions } from 'src/modules/sessions/entities/session.entity';
+
 @Entity()
 export class Rooms {
   @PrimaryGeneratedColumn('uuid')
@@ -29,10 +23,9 @@ export class Rooms {
   @IsInt()
   capacity: number;
 
-  /*   @OneToMany(() => Workspaces, (workspaces) => workspaces.room_id)
-  workspaces: Workspaces[];
- */
-  /*   @OneToMany(() => Sessions, sessions => sessions.room_id)
-  sessions: Sessions[];
- */
+  @OneToMany(() => Workspaces, (workspaces) => workspaces.room_id)
+  workspaces: Workspaces['workspace_id'][];
+
+  @OneToMany(() => Sessions, (sessions) => sessions.room_id)
+  sessions: Sessions['session_id'][];
 }
