@@ -141,6 +141,7 @@ export class WorkspacesController {
   @ApiBadRequestResponse({
     description: 'Invalid ID format, data, or workspace not found.',
   })
+  @ApiBody({ type: Workspaces })
   async update(
     @Param('id') id: string,
     @Body() updateWorkspaceDto: UpdateWorkspaceDto,
