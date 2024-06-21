@@ -9,12 +9,15 @@ import { Workspaces } from './entities/workspace.entity';
 import { CreateWorkspaceDto } from './dto/create-workspace.dto';
 import { UpdateWorkspaceDto } from './dto/update-workspace.dto';
 import { v4 as uuidv4 } from 'uuid';
+import { Reservations } from '../reservations/entities/reservation.entity';
 
 @Injectable()
 export class WorkspacesService {
   constructor(
     @InjectRepository(Workspaces)
     private readonly workspacesRepository: Repository<Workspaces>,
+    @InjectRepository(Reservations)
+    private readonly reservationsRepository: Repository<Reservations>,
   ) {}
 
   async create(createWorkspaceDto: CreateWorkspaceDto): Promise<Workspaces> {
@@ -95,10 +98,78 @@ export class WorkspacesService {
     return updatedWorkspace;
   }
 
-  async remove(id: string): Promise<void> {
-    const result = await this.workspacesRepository.delete(id);
+  async remove(workspace_id: string): Promise<void> {
+    const result = await this.workspacesRepository.delete(workspace_id);
     if (result.affected === 0) {
-      throw new NotFoundException(`Workspace with ID ${id} not found`);
+      throw new NotFoundException(
+        `Workspace with ID ${workspace_id} not found`,
+      );
     }
+  }
+
+  // Custom Queries
+
+  async findAvailable(
+    room_id: string,
+    session_id: string,
+  ): Promise<Workspaces[]> {
+    return this.workspacesRepository.query(
+      `
+      SELECT *
+      FROM Workspaces
+      WHERE room_id = $1
+      AND workspace_id NOT IN (
+          SELECT workspace_id
+          FROM Reservations
+          WHERE session_id = $2
+          AND status = 'confirmed'
+      )
+    `,
+      [room_id, session_id],
+    );
+  }
+
+  async findOccupied(
+    room_id: string,
+    session_id: string,
+  ): Promise<Workspaces[]> {
+    return this.workspacesRepository.query(
+      `
+      SELECT *
+      FROM Workspaces
+      WHERE room_id = ${room_id}
+      AND workspace_id IN (
+          SELECT workspace_id
+          FROM Reservations
+          WHERE session_id = ${session_id}
+          AND status = 'confirmed'
+      )
+    `,
+      [room_id, session_id],
+    );
+  }
+
+  async findAssignedToUser(user_id: string): Promise<string[]> {
+    return this.reservationsRepository.query(
+      `
+      SELECT workspace_id
+      FROM Reservations
+      WHERE user_id = ${user_id}
+      AND status = 'confirmed'
+    `,
+      [user_id],
+    );
+  }
+
+  async findAssignedToSession(session_id: string): Promise<string[]> {
+    return this.reservationsRepository.query(
+      `
+      SELECT workspace_id
+      FROM Reservations
+      WHERE session_id = ${session_id}
+      AND status = 'confirmed'
+    `,
+      [session_id],
+    );
   }
 }

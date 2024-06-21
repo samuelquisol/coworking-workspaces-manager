@@ -84,10 +84,10 @@ export class RoomsService {
     return updatedRoom;
   }
 
-  async remove(id: string): Promise<void> {
-    const result = await this.roomsRepository.delete(id);
+  async remove(room_id: string): Promise<void> {
+    const result = await this.roomsRepository.delete(room_id);
     if (result.affected === 0) {
-      throw new NotFoundException(`Room with ID ${id} not found`);
+      throw new NotFoundException(`Room with ID ${room_id} not found`);
     }
   }
 }

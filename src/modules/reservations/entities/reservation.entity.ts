@@ -2,43 +2,34 @@ import {
   Entity,
   PrimaryGeneratedColumn,
   Column,
-  /* ManyToOne,
-  JoinColumn, */
+  ManyToOne,
+  JoinColumn,
 } from 'typeorm';
 import { IsUUID, IsString, IsDate, Length } from 'class-validator';
-/* import { User } from './user.entity';
+import { Users } from 'src/modules/users/entities/user.entity';
 import { Workspaces } from 'src/modules/workspaces/entities/workspace.entity';
 import { Sessions } from 'src/modules/sessions/entities/session.entity';
- */
+
 @Entity()
 export class Reservations {
   @PrimaryGeneratedColumn('uuid')
   @IsUUID()
   reservation_id: string;
 
-  @Column({ nullable: true })
-  @IsUUID()
-  user_id: string;
-
-  /*  @ManyToOne(() => User, user => user.reservations)
+  @ManyToOne(() => Users, (user) => user.reservations)
   @JoinColumn({ name: 'user_id' })
-  user: User; */
-
-  @Column({ nullable: true })
   @IsUUID()
-  workspace_id: string;
+  user_id: Users['user_id'];
 
-  /* @ManyToOne(() => Workspaces, workspaces => workspaces.reservations)
+  @ManyToOne(() => Workspaces, (workspaces) => workspaces.reservations)
   @JoinColumn({ name: 'workspace_id' })
-  workspace: Workspaces; */
-
-  @Column({ nullable: true })
   @IsUUID()
-  session_id: string;
+  workspace_id: Workspaces['workspace_id'];
 
-  /* @ManyToOne(() => Session, session => session.reservations)
+  @ManyToOne(() => Sessions, (session) => session.reservations)
   @JoinColumn({ name: 'session_id' })
-  session: Session; */
+  @IsUUID()
+  session_id: Sessions['session_id'];
 
   @Column({ type: 'timestamp' })
   @IsDate()

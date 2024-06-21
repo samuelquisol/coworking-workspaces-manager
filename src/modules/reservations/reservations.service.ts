@@ -81,10 +81,12 @@ export class ReservationsService {
     await this.reservationsRepository.save(reservation);
   }
 
-  async remove(id: string): Promise<void> {
-    const result = await this.reservationsRepository.delete(id);
+  async remove(reservation_id: string): Promise<void> {
+    const result = await this.reservationsRepository.delete(reservation_id);
     if (result.affected === 0) {
-      throw new NotFoundException(`Reservation with ID ${id} not found`);
+      throw new NotFoundException(
+        `Reservation with ID ${reservation_id} not found`,
+      );
     }
   }
 }

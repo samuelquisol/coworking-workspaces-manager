@@ -2,28 +2,25 @@ import {
   Entity,
   PrimaryGeneratedColumn,
   Column,
-  /* ManyToOne,
+  ManyToOne,
   JoinColumn,
-  OneToMany, */
+  OneToMany,
 } from 'typeorm';
 import { IsUUID, IsInt, IsString, Length } from 'class-validator';
-/* import { Room } from './room.entity';
-import { Reservation } from './reservation.entity';
- */
+import { Rooms } from 'src/modules/rooms/entities/room.entity';
+import { Reservations } from 'src/modules/reservations/entities/reservation.entity';
+
 @Entity()
 export class Workspaces {
   @PrimaryGeneratedColumn('uuid')
   @IsUUID()
   workspace_id: string;
 
-  @Column({ nullable: true })
-  @IsUUID()
-  room_id: string;
-
-  /*   @ManyToOne(() => Room, room => room.workspaces)
+  @ManyToOne(() => Rooms, (room) => room.workspaces)
   @JoinColumn({ name: 'room_id' })
-  room: Room;
- */
+  @IsUUID()
+  room_id: Rooms['room_id'];
+
   @Column()
   @IsInt()
   workspace_row: number;
@@ -37,7 +34,6 @@ export class Workspaces {
   @Length(1, 50)
   type: string;
 
-  /*   @OneToMany(() => Reservation, reservation => reservation.workspace_id)
-  reservations: Reservation[];
- */
+  @OneToMany(() => Reservations, (reservation) => reservation.workspace_id)
+  reservations: Reservations['reservation_id'][];
 }
