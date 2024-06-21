@@ -2,33 +2,30 @@ import {
   Entity,
   PrimaryGeneratedColumn,
   Column,
-/*   ManyToOne,
+  ManyToOne,
   JoinColumn,
   OneToMany,
- */} from 'typeorm';
+} from 'typeorm';
 import { IsUUID, IsString, IsDate } from 'class-validator';
-/* import { Rooms } from 'src/modules/rooms/entities/rooms.entity';
-import { Reservation } from '';
- */
+import { Rooms } from 'src/modules/rooms/entities/room.entity';
+import { Reservations } from 'src/modules/reservations/entities/reservation.entity';
+
 @Entity()
 export class Sessions {
   @PrimaryGeneratedColumn('uuid')
   @IsUUID()
   session_id: string;
 
-  @Column({ nullable: true })
-  @IsUUID()
-  room_id: string;
-
-  /*   @ManyToOne(() => Room, (room) => room.sessions)
+  @ManyToOne(() => Rooms, (room) => room.sessions)
   @JoinColumn({ name: 'room_id' })
-  room: Room;
- */
-  @Column({ type: 'timestamp' })
+  @IsUUID()
+  room_id: Rooms['room_id'];
+
+  @Column()
   @IsDate()
   start_time: Date;
 
-  @Column({ type: 'timestamp' })
+  @Column()
   @IsDate()
   end_time: Date;
 
@@ -36,7 +33,6 @@ export class Sessions {
   @IsString()
   description: string;
 
-  /*   @OneToMany(() => Reservation, (reservation) => reservation.session_id)
-  reservations: Reservation[];
- */
+  @OneToMany(() => Reservations, (reservation) => reservation.session_id)
+  reservations: Reservations['reservation_id'][];
 }

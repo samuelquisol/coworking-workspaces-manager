@@ -21,11 +21,16 @@ import {
   ApiBadRequestResponse,
   ApiQuery,
 } from '@nestjs/swagger';
+import { Workspaces } from '../workspaces/entities/workspace.entity';
+import { WorkspacesService } from '../workspaces/workspaces.service';
 
 @ApiTags('Sessions')
 @Controller('sessions')
 export class SessionsController {
-  constructor(private readonly sessionsService: SessionsService) {}
+  constructor(
+    private readonly sessionsService: SessionsService,
+    private readonly workspacesService: WorkspacesService,
+  ) {}
 
   @Post()
   @ApiOperation({ summary: 'Create a new session' })
@@ -165,5 +170,44 @@ export class SessionsController {
   })
   async remove(@Param('id') id: string): Promise<void> {
     return this.sessionsService.remove(id);
+  }
+
+  // Custom Queries
+
+  @Get('sessions/most-occupied')
+  @ApiOperation({ summary: 'Retrieve sessions ordered by the most occupied' })
+  @ApiResponse({
+    status: 200,
+    description:
+      'Retrieved sessions ordered by the most occupied successfully.',
+    type: [Sessions],
+  })
+  async findMostOccupied(): Promise<any> {
+    return this.sessionsService.findMostOccupied();
+  }
+
+  @Get('sessions/most-available')
+  @ApiOperation({ summary: 'Retrieve sessions ordered by the most available' })
+  @ApiResponse({
+    status: 200,
+    description:
+      'Retrieved sessions ordered by the most available successfully.',
+    type: [Sessions],
+  })
+  async findMostAvailable(): Promise<any> {
+    return this.sessionsService.findMostAvailable();
+  }
+
+  @Get('assigned/session/:sessionId')
+  @ApiOperation({ summary: 'Retrieve workspaces assigned to a session' })
+  @ApiResponse({
+    status: 200,
+    description: 'Retrieved assigned workspaces successfully.',
+    type: [Workspaces],
+  })
+  async findAssignedToSession(
+    @Param('sessionId') sessionId: string,
+  ): Promise<string[]> {
+    return this.workspacesService.findAssignedToSession(sessionId);
   }
 }

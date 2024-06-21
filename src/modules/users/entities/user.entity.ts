@@ -24,5 +24,5 @@ export class Users {
   user_type: string;
 
   @OneToMany(() => Reservations, (reservations) => reservations.user_id)
-  reservations: Reservations[];
+  reservations: Reservations['reservation_id'][];
 }
