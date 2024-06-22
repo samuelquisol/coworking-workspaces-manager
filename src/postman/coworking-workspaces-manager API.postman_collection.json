@@ -1,0 +1,964 @@
+{
+	"info": {
+		"_postman_id": "f3f4cb3a-01c5-4df7-baf4-1df5870cd7e5",
+		"name": "coworking-workspaces-manager API",
+		"description": "API for managing coworking workspaces, users, reservations, rooms, sessions, and workspaces.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "33425931",
+		"_collection_link": "https://www.postman.com/aviation-geoscientist-63910277/workspace/learning-process/collection/33425931-f3f4cb3a-01c5-4df7-baf4-1df5870cd7e5?action=share&source=collection_link&creator=33425931"
+	},
+	"item": [
+		{
+			"name": "Users",
+			"description": "Endpoints for managing users.",
+			"item": [
+				{
+					"name": "Create User",
+					"description": "Endpoint for creating a new user.",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"user_name\": \"{{users_user_name}}\",\n  \"email\": \"{{users_email}}\",\n  \"user_type\": \"{{users_user_type}}\"\n}"
+						},
+						"url": "{{base_url}}/users"
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Users",
+					"description": "Endpoint for retrieving all users with optional filtering and pagination.",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/users",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "searchTerm",
+									"value": "{{users_searchTerm}}",
+									"description": "Search term to filter users by name, email, or type",
+									"disabled": true
+								},
+								{
+									"key": "orderField",
+									"value": "{{users_orderField}}",
+									"description": "Field to order by",
+									"disabled": true
+								},
+								{
+									"key": "orderType",
+									"value": "{{users_orderType}}",
+									"description": "Order type (ASC or DESC)",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "{{users_page}}",
+									"description": "Page number for pagination",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "{{users_limit}}",
+									"description": "Number of results per page",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User By ID",
+					"description": "Endpoint for retrieving a user by ID.",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{base_url}}/users/{{users_id}}"
+					},
+					"response": []
+				},
+				{
+					"name": "Update User",
+					"description": "Endpoint for updating user information.",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"user_name\": \"{{users_user_name}}\",\n  \"email\": \"{{users_email}}\",\n  \"user_type\": \"{{users_user_type}}\"\n}"
+						},
+						"url": "{{base_url}}/users/{{users_id}}"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete User",
+					"description": "Endpoint for deleting a user.",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "{{base_url}}/users/{{users_id}}"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Reservations",
+			"description": "Endpoints for managing reservations.",
+			"item": [
+				{
+					"name": "Create Reservation",
+					"description": "Endpoint for creating a new reservation.",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"user_id\": \"{{reservations_user_id}}\",\n  \"workspace_id\": \"{{reservations_workspace_id}}\",\n  \"session_id\": \"{{reservations_session_id}}\",\n  \"reservation_time\": \"2024-06-25T08:00:00.000Z\",\n  \"status\": \"Confirmed\"\n}"
+						},
+						"url": "{{base_url}}/reservations"
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Reservations",
+					"description": "Endpoint for retrieving all reservations with optional filtering and pagination.",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/reservations",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"reservations"
+							],
+							"query": [
+								{
+									"key": "userId",
+									"value": "{{reservations_user_id}}",
+									"description": "Filter reservations by user ID",
+									"disabled": true
+								},
+								{
+									"key": "workspaceId",
+									"value": "{{reservations_workspace_id}}",
+									"description": "Filter reservations by workspace ID",
+									"disabled": true
+								},
+								{
+									"key": "sessionId",
+									"value": "{{reservations_session_id}}",
+									"description": "Filter reservations by session ID",
+									"disabled": true
+								},
+								{
+									"key": "status",
+									"value": "{{reservations_status}}",
+									"description": "Filter reservations by status",
+									"disabled": true
+								},
+								{
+									"key": "orderField",
+									"value": "{{reservations_order_field}}",
+									"description": "Field to order by",
+									"disabled": true
+								},
+								{
+									"key": "orderType",
+									"value": "{{reservations_order_type}}",
+									"description": "Order type (ASC or DESC)",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "{{reservations_page}}",
+									"description": "Page number for pagination",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "{{reservations_limit}}",
+									"description": "Number of results per page",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Reservation By ID",
+					"description": "Endpoint for retrieving a reservation by ID.",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{base_url}}/reservations/{{reservations_id}}"
+					},
+					"response": []
+				},
+				{
+					"name": "Cancel Reservation",
+					"description": "Endpoint for canceling a reservation.",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "{{base_url}}/reservations/{{reservations_id}}/cancel"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Reservation",
+					"description": "Endpoint for deleting a reservation.",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "{{base_url}}/reservations/{{reservations_id}}"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Rooms",
+			"description": "Endpoints for managing rooms.",
+			"item": [
+				{
+					"name": "Create Room",
+					"description": "Endpoint for creating a new room.",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"room_name\": \"{{rooms_name}}\",\n  \"location\": \"{{rooms_location}}\",\n  \"capacity\": {{rooms_capacity}}\n}"
+						},
+						"url": "{{base_url}}/rooms"
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Rooms",
+					"description": "Endpoint for retrieving all rooms with optional filtering and pagination.",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/rooms",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"rooms"
+							],
+							"query": [
+								{
+									"key": "searchTerm",
+									"value": "{{rooms_searchTerm}}",
+									"description": "Search term for filtering Rooms by name or location",
+									"disabled": true
+								},
+								{
+									"key": "orderField",
+									"value": "{{rooms_order_field}}",
+									"description": "Field to order by",
+									"disabled": true
+								},
+								{
+									"key": "orderType",
+									"value": "{{rooms_order_type}}",
+									"description": "Order type (ASC or DESC)",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "{{rooms_page}}",
+									"description": "Page number for pagination",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "{{rooms_limit}}",
+									"description": "Number of results per page",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Room By ID",
+					"description": "Endpoint for retrieving a room by ID.",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{base_url}}/rooms/{{rooms_id}}"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Room",
+					"description": "Endpoint for updating room information.",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"room_name\": \"{{rooms_name}}\",\n  \"location\": \"{{rooms_location}}\",\n  \"capacity\": {{rooms_capacity}}\n}"
+						},
+						"url": "{{base_url}}/rooms/{{rooms_id}}"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Room",
+					"description": "Endpoint for deleting a room.",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "{{base_url}}/rooms/{{rooms_id}}"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Workspaces",
+			"description": "Endpoints for managing workspaces.",
+			"item": [
+				{
+					"name": "Create Workspace",
+					"description": "Endpoint for creating a new workspace.",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"room_id\": \"{{workspaces_room_id}}\",\n  \"workspace_row\": {{workspaces_workspace_row}},\n  \"workspace_column\": {{workspaces_workspace_column}},\n  \"type\": \"{{workspaces_type}}\"\n}"
+						},
+						"url": "{{base_url}}/workspaces"
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Workspaces",
+					"description": "Endpoint for retrieving all workspaces with optional filtering and pagination.",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/workspaces",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"workspaces"
+							],
+							"query": [
+								{
+									"key": "room_id",
+									"value": "{{workspaces_room_id}}",
+									"description": "Filter workspaces by room ID",
+									"disabled": true
+								},
+								{
+									"key": "type",
+									"value": "{{workspaces_type}}",
+									"description": "Filter workspaces by type",
+									"disabled": true
+								},
+								{
+									"key": "orderField",
+									"value": "{{workspaces_order_field}}",
+									"description": "Field to order by",
+									"disabled": true
+								},
+								{
+									"key": "orderType",
+									"value": "{{workspaces_order_type}}",
+									"description": "Order type (ASC or DESC)",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "{{workspaces_page}}",
+									"description": "Page number for pagination",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "{{workspaces_limit}}",
+									"description": "Number of results per page",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Workspace By ID",
+					"description": "Endpoint for retrieving a workspace by ID.",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{base_url}}/workspaces/{{workspaces_id}}"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Workspace",
+					"description": "Endpoint for updating workspace information.",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"room_id\": \"{{workspaces_room_id}}\",\n  \"workspace_row\": {{workspaces_workspace_row}},\n  \"workspace_column\": {{workspaces_workspace_column}},\n  \"type\": \"{{workspaces_type}}\"\n}"
+						},
+						"url": "{{base_url}}/workspaces/{{workspaces_id}}"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Workspace",
+					"description": "Endpoint for deleting a workspace.",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "{{base_url}}/workspaces/{{workspaces_id}}"
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieve Available Workspaces",
+					"description": "Endpoint for retrieving available workspaces for a given room and session.",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{base_url}}/workspaces/available/{{workspaces_room_id}}/{{workspaces_session_id}}"
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieve Occupied Workspaces",
+					"description": "Endpoint for retrieving occupied workspaces for a given room and session.",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{base_url}}/workspaces/occupied/{{workspaces_room_id}}/{{workspaces_session_id}}"
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieve Workspaces Assigned to a User",
+					"description": "Endpoint for retrieving workspaces assigned to a specific user.",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{base_url}}/workspaces/assigned/user/{{workspaces_userId}}"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Sessions",
+			"description": "Endpoints for managing sessions.",
+			"item": [
+				{
+					"name": "Create Session",
+					"description": "Endpoint for creating a new session.",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"room_id\": \"{{sessions_room_id}}\",\n  \"start_time\": \"{{sessions_start_time}}\",\n  \"end_time\": \"{{sessions_end_time}}\",\n  \"description\": \"{{sessions_description}}\"\n}"
+						},
+						"url": "{{base_url}}/sessions"
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Sessions",
+					"description": "Endpoint for retrieving all sessions with optional filtering and pagination.",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/sessions",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"sessions"
+							],
+							"query": [
+								{
+									"key": "room_id",
+									"value": "{{sessions_room_id}}",
+									"description": "Filter sessions by room ID",
+									"disabled": true
+								},
+								{
+									"key": "start_time",
+									"value": "{{sessions_start_time}}",
+									"description": "Filter sessions by start time",
+									"disabled": true
+								},
+								{
+									"key": "end_time",
+									"value": "{{sessions_end_time}}",
+									"description": "Filter sessions by end time",
+									"disabled": true
+								},
+								{
+									"key": "description",
+									"value": "{{sessions_description}}",
+									"description": "Filter sessions by description",
+									"disabled": true
+								},
+								{
+									"key": "orderField",
+									"value": "{{sessions_orderField}}",
+									"description": "Field to order by",
+									"disabled": true
+								},
+								{
+									"key": "orderType",
+									"value": "{{sessions_orderType}}",
+									"description": "Order type (ASC or DESC)",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "{{sessions_page}}",
+									"description": "Page number for pagination",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "{{sessions_limit}}",
+									"description": "Number of results per page",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Session By ID",
+					"description": "Endpoint for retrieving a session by ID.",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{base_url}}/sessions/{{sessions_id}}"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Session",
+					"description": "Endpoint for updating session information.",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"room_id\": \"{{sessions_room_id}}\",\n  \"start_time\": \"{{sessions_start_time}}\",\n  \"end_time\": \"{{sessions_end_time}}\",\n  \"description\": \"{{sessions_description}}\"\n}"
+						},
+						"url": "{{base_url}}/sessions/{{sessions_id}}"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Session",
+					"description": "Endpoint for deleting a session.",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "{{base_url}}/sessions/{{sessions_id}}"
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieve Sessions Ordered by the Most Occupied",
+					"description": "Endpoint for retrieving sessions ordered by the most occupied.",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{base_url}}/sessions/sessions/most-occupied"
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieve Sessions Ordered by the Most Available",
+					"description": "Endpoint for retrieving sessions ordered by the most available.",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{base_url}}/sessions/sessions/most-available"
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieve Workspaces Assigned to a Session",
+					"description": "Endpoint for retrieving workspaces assigned to a specific session.",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{base_url}}/sessions/assigned/session/{{sessions_sessionId}}"
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:3000/api/v1",
+			"type": "string"
+		},
+		{
+			"key": "users_id",
+			"value": "",
+			"type": "string",
+			"description": "ID of the user."
+		},
+		{
+			"key": "users_name",
+			"value": "",
+			"type": "string",
+			"description": "Name of the user."
+		},
+		{
+			"key": "users_email",
+			"value": "",
+			"type": "string",
+			"description": "Email of the user."
+		},
+		{
+			"key": "users_password",
+			"value": "",
+			"type": "string",
+			"description": "Password of the user."
+		},
+		{
+			"key": "users_avatar",
+			"value": "",
+			"type": "string",
+			"description": "Avatar URL of the user."
+		},
+		{
+			"key": "users_role",
+			"value": "",
+			"type": "string",
+			"description": "Role of the user."
+		},
+		{
+			"key": "users_searchTerm",
+			"value": "",
+			"type": "string",
+			"description": "Search term for filtering users by name or email."
+		},
+		{
+			"key": "users_order_field",
+			"value": "created_at",
+			"type": "string",
+			"description": "Field to order users by."
+		},
+		{
+			"key": "users_order_type",
+			"value": "ASC",
+			"type": "string",
+			"description": "Order type for users (ASC or DESC)."
+		},
+		{
+			"key": "users_page",
+			"value": "1",
+			"type": "string",
+			"description": "Page number for pagination."
+		},
+		{
+			"key": "users_limit",
+			"value": "10",
+			"type": "string",
+			"description": "Number of results per page."
+		},
+		{
+			"key": "reservations_user_id",
+			"value": "",
+			"type": "string",
+			"description": "ID of the user making the reservation."
+		},
+		{
+			"key": "reservations_workspace_id",
+			"value": "",
+			"type": "string",
+			"description": "ID of the workspace being reserved."
+		},
+		{
+			"key": "reservations_session_id",
+			"value": "",
+			"type": "string",
+			"description": "ID of the session associated with the reservation."
+		},
+		{
+			"key": "reservations_id",
+			"value": "",
+			"type": "string",
+			"description": "ID of the reservation."
+		},
+		{
+			"key": "reservations_status",
+			"value": "",
+			"type": "string",
+			"description": "Status of the reservation."
+		},
+		{
+			"key": "reservations_order_field",
+			"value": "reservation_time",
+			"type": "string",
+			"description": "Field to order reservations by."
+		},
+		{
+			"key": "reservations_order_type",
+			"value": "ASC",
+			"type": "string",
+			"description": "Order type for reservations (ASC or DESC)."
+		},
+		{
+			"key": "reservations_page",
+			"value": "1",
+			"type": "string",
+			"description": "Page number for pagination."
+		},
+		{
+			"key": "reservations_limit",
+			"value": "10",
+			"type": "string",
+			"description": "Number of results per page."
+		},
+		{
+			"key": "rooms_name",
+			"value": "",
+			"type": "string",
+			"description": "Name of the room."
+		},
+		{
+			"key": "rooms_location",
+			"value": "",
+			"type": "string",
+			"description": "Location of the room."
+		},
+		{
+			"key": "rooms_capacity",
+			"value": "0",
+			"type": "string",
+			"description": "Capacity of the room."
+		},
+		{
+			"key": "rooms_searchTerm",
+			"value": "",
+			"type": "string",
+			"description": "Search term for filtering rooms by name or location."
+		},
+		{
+			"key": "rooms_order_field",
+			"value": "room_name",
+			"type": "string",
+			"description": "Field to order rooms by."
+		},
+		{
+			"key": "rooms_order_type",
+			"value": "ASC",
+			"type": "string",
+			"description": "Order type for rooms (ASC or DESC)."
+		},
+		{
+			"key": "rooms_page",
+			"value": "1",
+			"type": "string",
+			"description": "Page number for pagination."
+		},
+		{
+			"key": "rooms_limit",
+			"value": "10",
+			"type": "string",
+			"description": "Number of results per page."
+		},
+		{
+			"key": "workspaces_room_id",
+			"value": "",
+			"type": "string",
+			"description": "ID of the room associated with the workspace."
+		},
+		{
+			"key": "workspaces_workspace_row",
+			"value": "0",
+			"type": "string",
+			"description": "Row number of the workspace."
+		},
+		{
+			"key": "workspaces_workspace_column",
+			"value": "0",
+			"type": "string",
+			"description": "Column number of the workspace."
+		},
+		{
+			"key": "workspaces_type",
+			"value": "",
+			"type": "string",
+			"description": "Type of the workspace."
+		},
+		{
+			"key": "workspaces_status",
+			"value": "",
+			"type": "string",
+			"description": "Status of the workspace."
+		},
+		{
+			"key": "workspaces_searchTerm",
+			"value": "",
+			"type": "string",
+			"description": "Search term for filtering workspaces by type."
+		},
+		{
+			"key": "workspaces_order_field",
+			"value": "created_at",
+			"type": "string",
+			"description": "Field to order workspaces by."
+		},
+		{
+			"key": "workspaces_order_type",
+			"value": "ASC",
+			"type": "string",
+			"description": "Order type for workspaces (ASC or DESC)."
+		},
+		{
+			"key": "workspaces_page",
+			"value": "1",
+			"type": "string",
+			"description": "Page number for pagination."
+		},
+		{
+			"key": "workspaces_limit",
+			"value": "10",
+			"type": "string",
+			"description": "Number of results per page."
+		},
+		{
+			"key": "sessions_room_id",
+			"value": "",
+			"type": "string",
+			"description": "ID of the room associated with the session."
+		},
+		{
+			"key": "sessions_name",
+			"value": "",
+			"type": "string",
+			"description": "Name of the session."
+		},
+		{
+			"key": "sessions_start_time",
+			"value": "",
+			"type": "string",
+			"description": "Start time of the session."
+		},
+		{
+			"key": "sessions_end_time",
+			"value": "",
+			"type": "string",
+			"description": "End time of the session."
+		},
+		{
+			"key": "sessions_searchTerm",
+			"value": "",
+			"type": "string",
+			"description": "Search term for filtering sessions by name or location."
+		},
+		{
+			"key": "sessions_order_field",
+			"value": "start_time",
+			"type": "string",
+			"description": "Field to order sessions by."
+		},
+		{
+			"key": "sessions_order_type",
+			"value": "ASC",
+			"type": "string",
+			"description": "Order type for sessions (ASC or DESC)."
+		},
+		{
+			"key": "sessions_page",
+			"value": "1",
+			"type": "string",
+			"description": "Page number for pagination."
+		},
+		{
+			"key": "sessions_limit",
+			"value": "10",
+			"type": "string",
+			"description": "Number of results per page."
+		}
+	]
+}
